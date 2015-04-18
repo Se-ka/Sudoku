@@ -2,15 +2,79 @@
  * Created by sergiy on 17.04.15.
  */
 
-readyfunction = function () {
 
+readyFunction = function () {
+
+    sudoku.render();
 
 };
 $(readyFunction);
 
-var i, k;
-for (i = 1; i <= 9; i++) {
-    for (k = 1; k <= 9; k++) {
-        $("#" + i + k).css("background-color", "yellow")
+sudoku = {
+
+    "numbers" : [
+        [0,0,0,0,0,0,0,0,0],
+        [0,0,0,0,0,0,0,0,0],
+        [0,0,0,0,0,0,0,0,0],
+        [0,0,0,0,0,0,0,0,0],
+        [0,0,0,0,0,0,0,0,0],
+        [0,0,0,0,0,0,0,0,0],
+        [0,0,0,0,0,0,0,0,0],
+        [0,0,0,0,0,0,0,0,0],
+        [0,0,0,0,0,0,0,0,0]
+    ],
+
+    "render": function () {
+
+        var i, k, n;
+        for (i = 1; i <= 9; i++) {
+            for (k = 1; k <= 9; k++) {
+
+                n = this.numbers[i-1][k-1];
+
+                if (n !== 0) {
+                    $("#" + i + k + " input").val(n);
+                }
+            }
+        }
+
+
     }
-}
+
+
+
+};
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

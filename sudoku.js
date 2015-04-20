@@ -2,16 +2,14 @@
  * Created by sergiy on 17.04.15.
  */
 
-
-// this.matrix.row === this.numbers
-
 readyFunction = function () {
     v = 0;
     c = 0;
 
     sudoku.render();
     sudoku.solve();
-    sudoku.stepByStepRendering();
+    $("table input").change(sudoku.assignChange.bind(sudoku));
+    $('[name=solve]').click(sudoku.stepByStepRendering.bind(sudoku));
 
 };
 $(readyFunction);
@@ -23,11 +21,11 @@ sudoku = {
     numbers: [
         [0,0,0,0,0,0,0,0,0],
         [0,0,0,0,0,0,0,0,0],
-        [0,0,2,0,0,0,0,0,0],
-        [1,0,0,0,0,0,0,0,0],
         [0,0,0,0,0,0,0,0,0],
         [0,0,0,0,0,0,0,0,0],
-        [0,0,0,3,0,0,0,0,0],
+        [0,0,0,0,0,0,0,0,0],
+        [0,0,0,0,0,0,0,0,0],
+        [0,0,0,0,0,0,0,0,0],
         [0,0,0,0,0,0,0,0,0],
         [0,0,0,0,0,0,0,0,0]
     ],
@@ -189,6 +187,27 @@ sudoku = {
         }
 
         return legalNums;
+    },
+
+    assignChange : function (event) {
+
+        var cell = $(event.target).parent().attr("id"),
+            data = $(event.target).val(),
+            row = cell[0] - 1,
+            col = cell[1] - 1;
+
+        //$(event.target).parent().bind(sudoku);
+
+
+        this.numbers[row][col] = data;
+
+        console.log(cell);
+        console.log(data);
+
+
     }
+
+
+
 
 };

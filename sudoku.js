@@ -6,17 +6,17 @@ readyFunction = function () {
     v = 0;
     c = 0;
 
-    sudoku.render();
-    sudoku.solve();
     $("table input").change(sudoku.assignChange.bind(sudoku));
-    $('[name=solve]').click(sudoku.stepByStepRendering.bind(sudoku));
-
+    $('[name=solve]').click(sudoku.solveButtonClicked.bind(sudoku));
 };
 $(readyFunction);
 
+
 sudoku = {
 
+
     $cellMatrix: {},
+
 
     numbers: [
         [0,0,0,0,0,0,0,0,0],
@@ -30,19 +30,6 @@ sudoku = {
         [0,0,0,0,0,0,0,0,0]
     ],
 
-    render: function () {
-        var i, k, n;
-        for (i = 1; i <= 9; i++) {
-            for (k = 1; k <= 9; k++) {
-
-                n = this.numbers[i-1][k-1];
-
-                if (n !== 0) {
-                    $("#" + i + k + " input").val(n);
-                }
-            }
-        }
-    },
 
     stepByStepRendering: function () {
 
@@ -66,8 +53,9 @@ sudoku = {
             }
         }
 
-        setTimeout(this.stepByStepRendering.bind(this), 1);
+        setTimeout(this.stepByStepRendering.bind(this), 50);
     },
+
 
     solve: function() {
 
@@ -89,8 +77,14 @@ sudoku = {
         console.log( 'Solver elapsed time: ' + elapsed + 'ms' );
     },
 
-    solveGame: function( row, col ) {
 
+    solveButtonClicked: function(){
+        this.solve();
+        this.stepByStepRendering();
+    },
+
+
+    solveGame: function( row, col ) {
         var cval, sqRow, sqCol, legalValues, closest;
 
         closest = this.findClosestEmptySquare( row, col );
@@ -126,6 +120,7 @@ sudoku = {
         return false;
     },
 
+
     findClosestEmptySquare: function( row, col ) {
         var walkingRow, walkingCol;
 
@@ -141,6 +136,7 @@ sudoku = {
             }
         }
     },
+
 
     findLegalValuesForSquare: function( row, col ) {
 
@@ -189,6 +185,7 @@ sudoku = {
         return legalNums;
     },
 
+
     assignChange : function (event) {
 
         var cell = $(event.target).parent().attr("id"),
@@ -196,18 +193,6 @@ sudoku = {
             row = cell[0] - 1,
             col = cell[1] - 1;
 
-        //$(event.target).parent().bind(sudoku);
-
-
-        this.numbers[row][col] = data;
-
-        console.log(cell);
-        console.log(data);
-
-
+        this.numbers[row][col] = Number(data);
     }
-
-
-
-
 };
